@@ -13,13 +13,12 @@ import { Cuenta } from './paginas/cuenta/cuenta';
 import { MisReservas } from './paginas/mis-reservas/mis-reservas';
 
 export const routes: Routes = [
-
     {
         path: '',
         component: PrincipalNavbar,
         children: [
             {
-                path: 'principal',
+                path: '',
                 component: Principal
             },
             {
@@ -30,31 +29,8 @@ export const routes: Routes = [
                 path: 'eventos',
                 component: Eventos
             },
-            {
-                path: 'detalle',
-                component: Detalle
-            },
-            {
-                path: 'prestamo',
-                component: Prestamo
-            },
-            {
-                path: 'registrar',
-                component: Registrar
-            },
-            {
-                path: 'cuenta',
-                component: Cuenta
-            },
-            {
-                path: 'mis-reservas',
-                component: MisReservas
-            }
         ]
-    }
-    ,
-
-    //dashboard
+    },
     {
         path: 'dashboard',
         component: DashboardNavbar,
@@ -69,5 +45,4 @@ export const routes: Routes = [
             }
         ]
     }
-   
 ];
