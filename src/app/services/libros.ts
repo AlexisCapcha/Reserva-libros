@@ -3,13 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 interface Libro {
-  id: number;
+  id?: number;
   titulo: string;
   autor: string;
   isbn: string;
   editorial: string;
   genero: string;
   fechaPublicacion: string;
+  descripcion: string;
+  imagenUrl: string;
+  slug?: string;
 }
 
 @Injectable({
@@ -32,8 +35,8 @@ export class LibrosService {
     return this.http.post<Libro>(this.apiUrl, libro);
   }
 
-  actualizarLibro(id: number, libro: Libro): Observable<Libro> {
-    return this.http.put<Libro>(`${this.apiUrl}/${id}`, libro);
+    actualizarLibro(libro: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${libro.id}`, libro);
   }
 
   eliminarLibro(id: number): Observable<void> {
