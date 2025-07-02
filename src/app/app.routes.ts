@@ -3,19 +3,65 @@ import { Libros } from './dashboard/libros/libros';
 import { Dashboard } from './dashboard/dashboard/dashboard';
 import { Principal } from './paginas/principal/principal';
 import { DashboardNavbar } from './dashboard/dashboard-navbar/dashboard-navbar';
+import { PrincipalNavbar } from './paginas/principal-navbar/principal-navbar';
+import { Catalogo } from './paginas/catalogo/catalogo';
+import { Eventos } from './paginas/eventos/eventos';
+import { Detalle } from './paginas/detalle/detalle';
+import { Prestamo } from './paginas/prestamo/prestamo';
+import { Registrar } from './paginas/registrar/registrar';
+import { Cuenta } from './paginas/cuenta/cuenta';
+import { MisReservas } from './paginas/mis-reservas/mis-reservas';
 
 export const routes: Routes = [
+
     {
         path: '',
-        component: Principal
-    },
+        component: PrincipalNavbar,
+        children: [
+            {
+                path: 'principal',
+                component: Principal
+            },
+            {
+                path: 'catalogo',
+                component: Catalogo
+            },
+            {
+                path: 'eventos',
+                component: Eventos
+            },
+            {
+                path: 'detalle',
+                component: Detalle
+            },
+            {
+                path: 'prestamo',
+                component: Prestamo
+            },
+            {
+                path: 'registrar',
+                component: Registrar
+            },
+            {
+                path: 'cuenta',
+                component: Cuenta
+            },
+            {
+                path: 'mis-reservas',
+                component: MisReservas
+            }
+        ]
+    }
+    ,
+
+    //dashboard
     {
         path: 'dashboard',
         component: DashboardNavbar,
         children: [
             {
-                path:'',
-                component:Dashboard
+                path: '',
+                component: Dashboard
             },
             {
                 path: 'libros',
@@ -23,4 +69,5 @@ export const routes: Routes = [
             }
         ]
     }
+   
 ];

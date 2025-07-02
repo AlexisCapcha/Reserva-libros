@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 p-3 sidebar">
+            <h4 class="text-primary mb-4">Mi Cuenta</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/tucuenta}"><i class="bi bi-person-fill me-2"></i>Yo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/misreservas}"><i class="bi bi-calendar3 me-2"></i>Mis
+                        Préstamos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="bi bi-box-arrow-left me-2"></i>Cerrar Sesión</a>
+                </li>
+            </ul>
+                    
+        </div>
+
+        <!-- Perfil y Libros Reservados -->
+        <div class="col-md-9 col-lg-10 profile-section">
+            <h2 class="text-primary fw-bold">Mi Información</h2>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <p><span class="data-label">DNI:</span> 72134895</p>
+                    <p><span class="data-label">Correo:</span> juan.perezgmail.com</p>
+                    <p><span class="data-label">Teléfono:</span> +51 999 888 777</p>
+                    <p><span class="data-label">Nombres:</span> Juan Carlos</p>
+                    <p><span class="data-label">Apellidos:</span> Pérez Gómez</p>
+                    <p><span class="data-label">Edad:</span> 25</p>
+                    <p><span class="data-label">Dirección:</span> Av. Siempre Viva 123</p>
+                </div>
+            </div>
+
+            <!-- Libros Reservados -->
+            <div class="reserved-books">
+                <h4 class="text-primary fw-bold">Libros Reservados</h4>
+
+                <div class="book-item">
+                    <h6>📘 Cien Años de Soledad</h6>
+                    <small>Autor: Gabriel García Márquez</small><br>
+                    <small>Fecha de reserva: 10 abril 2025</small>
+                </div>
+
+                <div class="book-item">
+                    <h6>📙 El Principito</h6>
+                    <small>Autor: Antoine de Saint-Exupéry</small><br>
+                    <small>Fecha de reserva: 15 abril 2025</small>
+                </div>
+
+                <div class="book-item">
+                    <h6>📗 La Sombra del Viento</h6>
+                    <small>Autor: Carlos Ruiz Zafón</small><br>
+                    <small>Fecha de reserva: 18 abril 2025</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

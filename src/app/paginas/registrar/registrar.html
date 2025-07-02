@@ -1,0 +1,70 @@
+<div class="form-container container mt-5">
+    <h2 class="mb-4 text-center">Registro de Usuario - Biblioteca Nacional</h2>
+
+    <!-- Mostrar error si existe -->
+    <div class="alert alert-danger"></div>
+
+    <!-- DNI -->
+    <div class="mb-3">
+        <label for="dni" class="form-label">DNI / Documento de identidad *</label>
+        <input type="text" id="dni" class="form-control" th:field="*{dni}" required />
+    </div>
+
+    <!-- Nombres y Apellidos -->
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label for="nombres" class="form-label">Nombres completos *</label>
+            <input type="text" id="nombres" class="form-control" th:field="*{nombres}" required />
+        </div>
+        <div class="col-md-6">
+            <label for="apellidos" class="form-label">Apellidos *</label>
+            <input type="text" id="apellidos" class="form-control" th:field="*{apellidos}" required />
+        </div>
+    </div>
+
+    <!-- Fecha de nacimiento y Género -->
+    <div class="row g-3 mt-3">
+        <div class="col-md-6">
+            <label for="fechaNacimiento" class="form-label">Fecha de nacimiento *</label>
+            <input type="date" id="fechaNacimiento" class="form-control" th:field="*{fechaNacimiento}" required />
+        </div>
+        <div class="col-md-6">
+            <label for="genero" class="form-label">Género *</label>
+            <select id="genero" class="form-select" th:field="*{genero}" required>
+                <option value="">Seleccione</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="otro">Otro</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Correo (username) y Teléfono -->
+    <div class="row g-3 mt-3">
+        <div class="col-md-6">
+            <label for="username" class="form-label">Correo electrónico *</label>
+            <input type="email" id="username" class="form-control" th:field="*{username}" required />
+        </div>
+        <div class="col-md-6">
+            <label for="telefono" class="form-label">Teléfono / Celular *</label>
+            <input type="tel" id="telefono" class="form-control" th:field="*{telefono}" required />
+        </div>
+    </div>
+
+    <!-- Dirección -->
+    <div class="mb-3 mt-3">
+        <label for="direccion" class="form-label">Dirección de domicilio *</label>
+        <input type="text" id="direccion" class="form-control" th:field="*{direccion}" required />
+    </div>
+
+    <!-- Contraseña -->
+    <div class="mb-3 mt-3">
+        <label for="password" class="form-label">Contraseña *</label>
+        <input type="password" id="password" class="form-control" th:field="*{password}" required />
+    </div>
+
+    <!-- Botón de registro -->
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+    </div>
+</div>
