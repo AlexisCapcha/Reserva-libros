@@ -1,43 +1,41 @@
+<div class="container my-5">
+  <a routerLink="/catalogo" class="btn btn-danger btn-sm">
+    Volver al Catálogo
+  </a>
 
-  <div class="container my-5">
-    <a  class="btn btn-danger btn-sm">
-      Volver al Catálogo
-    </a>
-    <h2 class="mb-4 fw-bold">Detalle libro</h2>
+  <h2 class="mb-4 fw-bold">Detalle libro</h2>
 
-    <div class="book-detail">
-      <div class="row">
-        <!-- Columna de imagen y datos -->
-        <div class="col-md-4 text-center mb-4 mb-md-0">
-          <img th:src="${libro.imagenUrl}" th:alt="${libro.titulo}" class="book-image mb-3">
-          <h5 class="fw-bold" th:text="${libro.titulo}">Fahrenheit 451</h5>
-          <p class="mb-1"><strong>Autor:</strong> <span th:text="${libro.autor}">Autor</span></p>
-          <p class="mb-1"><strong>Fecha de publicación:</strong> <span th:text="${libro.fechaPublicacion}">Fecha</span></p>
-          <p class="mb-1"><strong>Editorial:</strong> <span th:text="${libro.editorial}">Editorial</span></p>
-          <p class="mb-3"><strong>ISBN:</strong> <span th:text="${libro.isbn}">ISBN</span></p>
-          <a  class="btn btn-purple w-100">Solicitar préstamo</a>
-        </div>
+  <div class="book-detail">
+    <div class="row">
+      <!-- Columna de imagen y datos -->
+      <div class="col-md-4 text-center mb-4 mb-md-0" *ngIf="libro">
+        <img [src]="libro.imagenUrl" [alt]="libro.titulo" class="book-image mb-3" />
+        <h5 class="fw-bold">{{ libro.titulo }}</h5>
+        <p class="mb-1"><strong>Autor:</strong> {{ libro.autor }}</p>
+        <p class="mb-1"><strong>Fecha de publicación:</strong> {{ libro.fechaPublicacion }}</p>
+        <p class="mb-1"><strong>Editorial:</strong> {{ libro.editorial }}</p>
+        <p class="mb-3"><strong>ISBN:</strong> {{ libro.isbn }}</p>
+        <button class="btn btn-purple w-100">Solicitar préstamo</button>
+      </div>
 
-        <!-- Columna de descripción y disponibilidad -->
-        <div class="col-md-8">
-          <h5 class="section-title">Descripción</h5>
-          <p th:text="${libro.descripcion}" style="text-align: justify;">
-            Una distopía en la que los libros están prohibidos y los "bomberos" se encargan
-            de quemarlos. El protagonista, Montag, comienza a cuestionar esta realidad.
-          </p>
+      <!-- Columna de descripción y disponibilidad -->
+      <div class="col-md-8" *ngIf="libro">
+        <h5 class="section-title">Descripción</h5>
+        <p style="text-align: justify;">
+          {{ libro.descripcion }}
+        </p>
 
-          <h5 class="section-title">Disponibilidad</h5>
-          <div class="form-check mb-2">
-            <div class="text-muted ms-3">
-              <strong>Ejemplares disponibles:</strong> <span th:text="${ejemplares.size()}">0</span>
-            </div>
-            <div class="mt-3">
-              <a href="ruta-del-libro.pdf" class="btn btn-success" download>
-                📥 Descargar libro
-              </a>
-            </div>
+        <h5 class="section-title">Disponibilidad</h5>
+        <div class="form-check mb-2">
+          <div class="text-muted ms-3">
+          </div>
+          <div class="mt-3">
+            <a [href]="libro.archivoUrl" class="btn btn-success" download>
+              📥 Descargar libro
+            </a>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

@@ -25,7 +25,8 @@ export const routes: Routes = [
             {
                 path: 'catalogo',
                 component: Catalogo
-            },
+            }
+            ,
             {
                 path: 'eventos',
                 component: Eventos
@@ -54,6 +55,9 @@ export const routes: Routes = [
     }
     ,
 
+    { path: 'detalle/:id', loadComponent: () => import('./paginas/detalle/detalle').then(m => m.Detalle) },
+
+
     //dashboard
     {
         path: 'dashboard',
@@ -69,5 +73,5 @@ export const routes: Routes = [
             }
         ]
     }
-   
+
 ];

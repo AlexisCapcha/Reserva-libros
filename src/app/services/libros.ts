@@ -51,4 +51,14 @@ export class LibrosService {
   getGeneros(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiUrl}/generos`);
   }
+
+  buscarLibrosConFiltros(titulo?: string, editorial?: string, genero?: string, orden?: string): Observable<any[]> {
+    const params: any = {};
+    if (titulo) params.titulo = titulo;
+    if (editorial) params.editorial = editorial;
+    if (genero) params.genero = genero;
+    if (orden) params.orden = orden;
+
+    return this.http.get<any[]>(`${this.apiUrl}/buscar`, { params });
+  }
 }
