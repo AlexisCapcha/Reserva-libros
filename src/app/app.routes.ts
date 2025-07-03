@@ -12,21 +12,22 @@ import { Registrar } from './paginas/registrar/registrar';
 import { CuentaComponent } from './paginas/cuenta/cuenta';
 //import { Cuenta } from './paginas/cuenta/cuenta';
 import { MisReservas } from './paginas/mis-reservas/mis-reservas';
+import { Ejemplares } from './dashboard/ejemplares/ejemplares';
 
 export const routes: Routes = [
-
     {
         path: '',
         component: PrincipalNavbarComponent,
         children: [
             {
-                path: 'principal',
+                path: '',
                 component: Principal
             },
             {
                 path: 'catalogo',
                 component: Catalogo
-            },
+            }
+            ,
             {
                 path: 'eventos',
                 component: Eventos
@@ -55,6 +56,9 @@ export const routes: Routes = [
     }
     ,
 
+    { path: 'detalle/:id', loadComponent: () => import('./paginas/detalle/detalle').then(m => m.Detalle) },
+
+
     //dashboard
     {
         path: 'dashboard',
@@ -67,8 +71,12 @@ export const routes: Routes = [
             {
                 path: 'libros',
                 component: Libros
+            },
+            {
+                path: 'ejemplares',
+                component:Ejemplares
             }
         ]
     }
-   
+
 ];

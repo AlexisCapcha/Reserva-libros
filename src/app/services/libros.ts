@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-interface Libro {
-  id: number;
-  titulo: string;
-  autor: string;
-  isbn: string;
-  editorial: string;
-  genero: string;
-  fechaPublicacion: string;
-}
+import { Libro } from '../dashboard/libros/libro.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +23,8 @@ export class LibrosService {
     return this.http.post<Libro>(this.apiUrl, libro);
   }
 
-  actualizarLibro(id: number, libro: Libro): Observable<Libro> {
-    return this.http.put<Libro>(`${this.apiUrl}/${id}`, libro);
+    actualizarLibro(libro: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${libro.id}`, libro);
   }
 
   eliminarLibro(id: number): Observable<void> {
@@ -50,5 +41,15 @@ export class LibrosService {
 
   getGeneros(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiUrl}/generos`);
+  }
+
+  buscarLibrosConFiltros(titulo?: string, editorial?: string, genero?: string, orden?: string): Observable<any[]> {
+    const params: any = {};
+    if (titulo) params.titulo = titulo;
+    if (editorial) params.editorial = editorial;
+    if (genero) params.genero = genero;
+    if (orden) params.orden = orden;
+
+    return this.http.get<any[]>(`${this.apiUrl}/buscar`, { params });
   }
 }
