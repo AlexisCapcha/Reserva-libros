@@ -11,15 +11,15 @@ import { Prestamo } from './paginas/prestamo/prestamo';
 import { Registrar } from './paginas/registrar/registrar';
 import { Cuenta } from './paginas/cuenta/cuenta';
 import { MisReservas } from './paginas/mis-reservas/mis-reservas';
+import { Ejemplares } from './dashboard/ejemplares/ejemplares';
 
 export const routes: Routes = [
-
     {
         path: '',
         component: PrincipalNavbar,
         children: [
             {
-                path: 'principal',
+                path: '',
                 component: Principal
             },
             {
@@ -31,26 +31,6 @@ export const routes: Routes = [
                 path: 'eventos',
                 component: Eventos
             },
-            {
-                path: 'detalle',
-                component: Detalle
-            },
-            {
-                path: 'prestamo',
-                component: Prestamo
-            },
-            {
-                path: 'registrar',
-                component: Registrar
-            },
-            {
-                path: 'cuenta',
-                component: Cuenta
-            },
-            {
-                path: 'mis-reservas',
-                component: MisReservas
-            }
         ]
     }
     ,
@@ -70,6 +50,10 @@ export const routes: Routes = [
             {
                 path: 'libros',
                 component: Libros
+            },
+            {
+                path: 'ejemplares',
+                component:Ejemplares
             }
         ]
     }
