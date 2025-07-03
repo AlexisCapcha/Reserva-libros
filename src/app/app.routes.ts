@@ -11,7 +11,7 @@ import { Prestamo } from './paginas/prestamo/prestamo';
 import { Registrar } from './paginas/registrar/registrar';
 import { Cuenta } from './paginas/cuenta/cuenta';
 import { MisReservas } from './paginas/mis-reservas/mis-reservas';
-import { Ejemplares } from './deashboard/ejemplares/ejemplares';
+import { Ejemplares } from './dashboard/ejemplares/ejemplares';
 
 export const routes: Routes = [
     {

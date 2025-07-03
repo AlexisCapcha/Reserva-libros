@@ -35,10 +35,10 @@
                         <td class="text-center">{{ libro.genero }}</td>
                         <td class="text-center">{{ libro.fechaPublicacion | date:"dd/MM/yyyy" }}</td>
                         <td class="d-flex justify-content-evenly">
-                            <button class="btn btn-warning btn-sm" (click)="abrirModalEditar(libro.id)">Editar</button>
+                            <button class="btn btn-warning btn-sm" (click)="abrirModalEditar(libro.id)"><i class="bi bi-pencil-square"></i> Editar</button>
                             <button class="btn btn-danger btn-sm"
                                 (click)="confirmarEliminacion(libro.id, libro.titulo)">
-                                Eliminar
+                                <i class="bi bi-trash"></i> Eliminar
                             </button>
                         </td>
                     </tr>
@@ -48,7 +48,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col-2">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarLibro">
-                    Agregar Libro
+                    <i class="bi bi-plus-circle"></i> Agregar Libro
                 </button>
             </div>
         </div>
@@ -162,97 +162,97 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form (ngSubmit)="actualizarLibro(formEditar)" #formEditar="ngForm" novalidate></form>
-                <input type="hidden" [(ngModel)]="libroEditando.id" name="id">
+                <form (ngSubmit)="actualizarLibro(formEditar)" #formEditar="ngForm" novalidate>
+                    <input type="hidden" [(ngModel)]="libroEditando.id" name="id">
 
-                <div class="row g-3">
-                    <!-- Título -->
-                    <div class="col-12">
-                        <label for="editTitulo" class="form-label">Título del libro</label>
-                        <input type="text" class="form-control" id="editTitulo" placeholder="Título"
-                            [(ngModel)]="libroEditando.titulo" name="titulo" required #editTitulo="ngModel" />
-                        <div *ngIf="editTitulo.invalid && editTitulo.touched" class="text-danger">
-                            El título es requerido
+                    <div class="row g-3">
+                        <!-- Título -->
+                        <div class="col-12">
+                            <label for="editTitulo" class="form-label">Título del libro</label>
+                            <input type="text" class="form-control" id="editTitulo" placeholder="Título"
+                                [(ngModel)]="libroEditando.titulo" name="titulo" required #editTitulo="ngModel" />
+                            <div *ngIf="editTitulo.invalid && editTitulo.touched" class="text-danger">
+                                El título es requerido
+                            </div>
+                        </div>
+
+                        <!-- Autor -->
+                        <div class="col-12">
+                            <label for="editAutor" class="form-label">Nombre del Autor</label>
+                            <input type="text" class="form-control" id="editAutor" placeholder="Autor"
+                                [(ngModel)]="libroEditando.autor" name="autor" required #editAutor="ngModel" />
+                            <div *ngIf="editAutor.invalid && editAutor.touched" class="text-danger">
+                                El autor es requerido
+                            </div>
+                        </div>
+
+                        <!-- ISBN -->
+                        <div class="col-md-6">
+                            <label for="editIsbn" class="form-label">Número de ISBN</label>
+                            <input type="text" class="form-control" id="editIsbn" placeholder="ISBN"
+                                [(ngModel)]="libroEditando.isbn" name="isbn" required
+                                pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$" #editIsbn="ngModel" />
+                            <div *ngIf="editIsbn.invalid && editIsbn.touched" class="text-danger">
+                                <div *ngIf="editIsbn.errors?.['required']">El ISBN es requerido</div>
+                                <div *ngIf="editIsbn.errors?.['pattern']">Formato ISBN-10 o ISBN-13 válido</div>
+                            </div>
+                        </div>
+
+                        <!-- Editorial -->
+                        <div class="col-md-6">
+                            <label for="editEditorial" class="form-label">Nombre de Editorial</label>
+                            <input type="text" class="form-control" id="editEditorial" placeholder="Editorial"
+                                [(ngModel)]="libroEditando.editorial" name="editorial" required
+                                #editEditorial="ngModel" />
+                            <div *ngIf="editEditorial.invalid && editEditorial.touched" class="text-danger">
+                                La editorial es requerida
+                            </div>
+                        </div>
+
+                        <!-- Género -->
+                        <div class="col-md-6">
+                            <label for="editGenero" class="form-label">Género Literario</label>
+                            <input type="text" class="form-control" id="editGenero" placeholder="Género"
+                                [(ngModel)]="libroEditando.genero" name="genero" required #editGenero="ngModel" />
+                            <div *ngIf="editGenero.invalid && editGenero.touched" class="text-danger">
+                                El género es requerido
+                            </div>
+                        </div>
+
+                        <!-- Fecha Publicación -->
+                        <div class="col-md-6">
+                            <label for="editFecha" class="form-label">Fecha de Publicación</label>
+                            <input type="date" class="form-control" id="editFecha"
+                                [(ngModel)]="libroEditando.fechaPublicacion" name="fechaPublicacion" required
+                                #editFecha="ngModel" />
+                            <div *ngIf="editFecha.invalid && editFecha.touched" class="text-danger">
+                                La fecha es requerida
+                            </div>
+                        </div>
+
+                        <!-- URL Imagen -->
+                        <div class="col-12">
+                            <label for="editImagen" class="form-label">Url de la Portada</label>
+                            <input type="text" class="form-control" id="editImagen"
+                                placeholder="Link de la imagen de portada" [(ngModel)]="libroEditando.imagenUrl"
+                                name="imagenUrl" required #editImagen="ngModel" />
+                            <div *ngIf="editImagen.invalid && editImagen.touched" class="text-danger">
+                                La URL es requerida
+                            </div>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="col-12">
+                            <label for="editDescripcion" class="form-label">Descripción / Sinopsis</label>
+                            <textarea class="form-control" id="editDescripcion" rows="4"
+                                placeholder="Breve descripción del libro" [(ngModel)]="libroEditando.descripcion"
+                                name="descripcion"></textarea>
                         </div>
                     </div>
-
-                    <!-- Autor -->
-                    <div class="col-12">
-                        <label for="editAutor" class="form-label">Nombre del Autor</label>
-                        <input type="text" class="form-control" id="editAutor" placeholder="Autor"
-                            [(ngModel)]="libroEditando.autor" name="autor" required #editAutor="ngModel" />
-                        <div *ngIf="editAutor.invalid && editAutor.touched" class="text-danger">
-                            El autor es requerido
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!formEditar.valid">Actualizar</button>
                     </div>
-
-                    <!-- ISBN -->
-                    <div class="col-md-6">
-                        <label for="editIsbn" class="form-label">Número de ISBN</label>
-                        <input type="text" class="form-control" id="editIsbn" placeholder="ISBN"
-                            [(ngModel)]="libroEditando.isbn" name="isbn" required
-                            pattern="^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$" #editIsbn="ngModel" />
-                        <div *ngIf="editIsbn.invalid && editIsbn.touched" class="text-danger">
-                            <div *ngIf="editIsbn.errors?.['required']">El ISBN es requerido</div>
-                            <div *ngIf="editIsbn.errors?.['pattern']">Formato ISBN-10 o ISBN-13 válido</div>
-                        </div>
-                    </div>
-
-                    <!-- Editorial -->
-                    <div class="col-md-6">
-                        <label for="editEditorial" class="form-label">Nombre de Editorial</label>
-                        <input type="text" class="form-control" id="editEditorial" placeholder="Editorial"
-                            [(ngModel)]="libroEditando.editorial" name="editorial" required #editEditorial="ngModel" />
-                        <div *ngIf="editEditorial.invalid && editEditorial.touched" class="text-danger">
-                            La editorial es requerida
-                        </div>
-                    </div>
-
-                    <!-- Género -->
-                    <div class="col-md-6">
-                        <label for="editGenero" class="form-label">Género Literario</label>
-                        <input type="text" class="form-control" id="editGenero" placeholder="Género"
-                            [(ngModel)]="libroEditando.genero" name="genero" required #editGenero="ngModel" />
-                        <div *ngIf="editGenero.invalid && editGenero.touched" class="text-danger">
-                            El género es requerido
-                        </div>
-                    </div>
-
-                    <!-- Fecha Publicación -->
-                    <div class="col-md-6">
-                        <label for="editFecha" class="form-label">Fecha de Publicación</label>
-                        <input type="date" class="form-control" id="editFecha"
-                            [(ngModel)]="libroEditando.fechaPublicacion" name="fechaPublicacion" required
-                            #editFecha="ngModel" />
-                        <div *ngIf="editFecha.invalid && editFecha.touched" class="text-danger">
-                            La fecha es requerida
-                        </div>
-                    </div>
-
-                    <!-- URL Imagen -->
-                    <div class="col-12">
-                        <label for="editImagen" class="form-label">Url de la Portada</label>
-                        <input type="text" class="form-control" id="editImagen"
-                            placeholder="Link de la imagen de portada" [(ngModel)]="libroEditando.imagenUrl"
-                            name="imagenUrl" required #editImagen="ngModel" />
-                        <div *ngIf="editImagen.invalid && editImagen.touched" class="text-danger">
-                            La URL es requerida
-                        </div>
-                    </div>
-
-                    <!-- Descripción -->
-                    <div class="col-12">
-                        <label for="editDescripcion" class="form-label">Descripción / Sinopsis</label>
-                        <textarea class="form-control" id="editDescripcion" rows="4"
-                            placeholder="Breve descripción del libro" [(ngModel)]="libroEditando.descripcion"
-                            name="descripcion"></textarea>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" [disabled]="!formEditar.valid">Actualizar</button>
-                </div>
                 </form>
             </div>
         </div>
