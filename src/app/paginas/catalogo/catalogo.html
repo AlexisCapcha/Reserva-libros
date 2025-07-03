@@ -41,13 +41,26 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
 
         <div class="col" *ngFor="let libro of libros; let i = index">
-            <div class="card h-100">
-                <img [src]="libro.imagenUrl" class="card-img-top libro-img" [alt]="libro.titulo">
+            <div class="card h-100 position-relative">
+                <!-- Contenedor de la imagen con la etiqueta "No disponible" -->
+                <div class="position-relative">
+                    <img [src]="libro.imagenUrl" class="card-img-top libro-img" [alt]="libro.titulo">
+
+                    <!-- Texto "No disponible" encima de la imagen -->
+                    <div *ngIf="libro.ejemplares.length === 0"
+                        class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex align-items-center justify-content-center text-white fw-bold fs-6">
+                        No disponible
+                    </div>
+                </div>
+
                 <span class="btn btn-info">{{ libro.genero }}</span>
 
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ libro.titulo }}</h5>
                     <p class="card-text">{{ libro.descripcion }}</p>
+                    <p class="card-text">
+                        <strong>Ejemplares:</strong> {{ libro.ejemplares.length }}
+                    </p>
 
                     <div class="mt-auto d-flex justify-content-between">
                         <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
@@ -58,6 +71,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Modales -->

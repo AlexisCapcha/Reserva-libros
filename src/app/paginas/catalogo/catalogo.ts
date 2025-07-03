@@ -19,7 +19,7 @@ export class Catalogo implements OnInit {
 
   filtroForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private librosService: LibrosService) {}
+  constructor(private fb: FormBuilder, private librosService: LibrosService) { }
 
   ngOnInit(): void {
     this.filtroForm = this.fb.group({
@@ -55,9 +55,19 @@ export class Catalogo implements OnInit {
   filtrar(): void {
     const { titulo, editorial, genero, orden } = this.filtroForm.value;
 
-    this.librosService.buscarLibrosConFiltros(titulo, editorial, genero, orden).subscribe({
-      next: (data) => this.libros = data,
-      error: (err) => console.error('Error al filtrar libros', err)
+    this.librosService.getLibros().subscribe({
+      next: (data: any[]) => {
+        this.libros = data
+          .filter(libro => !titulo || libro.titulo.toLowerCase().includes(titulo.toLowerCase()))
+          .filter(libro => !editorial || libro.editorial === editorial)
+          .filter(libro => !genero || libro.genero === genero)
+          .sort((a, b) => {
+            const comparacion = a.titulo.localeCompare(b.titulo, 'es', { sensitivity: 'base' });
+            return orden === 'desc' ? -comparacion : comparacion;
+          });
+      },
+      error: (err: any) => console.error('Error al filtrar libros', err)
     });
   }
+
 }

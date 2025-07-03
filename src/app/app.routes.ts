@@ -31,11 +31,22 @@ export const routes: Routes = [
                 path: 'eventos',
                 component: Eventos
             },
+
+            { path: 'detalle/:id', loadComponent: () => import('./paginas/detalle/detalle').then(m => m.Detalle) }
+            ,
+            {
+                path: 'prestamo',
+                component: Prestamo
+            }
+            ,
+            {
+                path: 'prestamo/:id',
+                loadComponent: () => import('./paginas/prestamo/prestamo').then(m => m.Prestamo)
+            }
         ]
     }
     ,
 
-    { path: 'detalle/:id', loadComponent: () => import('./paginas/detalle/detalle').then(m => m.Detalle) },
 
 
     //dashboard
@@ -53,7 +64,7 @@ export const routes: Routes = [
             },
             {
                 path: 'ejemplares',
-                component:Ejemplares
+                component: Ejemplares
             }
         ]
     }

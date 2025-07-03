@@ -1,45 +1,46 @@
 <div class="voucher-container mx-auto bg-white p-4 rounded shadow-sm mt-4">
-    <a  class="btn btn-danger btn-sm">
-        Volver a detalle
-    </a>
-    <h2 class="mb-4 fw-bold text-center">Solicitar préstamo</h2>
+  <a [routerLink]="['/detalle', libro?.id]" class="btn btn-danger btn-sm">
+    Volver a detalle
+  </a>
 
-    <h6 class="fw-bold">Pasos a seguir</h6>
-    <ol class="mb-4">
-        <li>Imprimir el siguiente voucher en la biblioteca</li>
-        <li>Firmar el voucher impreso</li>
-        <li>Presentar el voucher en la recepción de la biblioteca</li>
-        <li>Listo. ¡Disfruta del libro!</li>
-    </ol>
+  <h2 class="mb-4 fw-bold text-center">Solicitar préstamo</h2>
 
-    <hr>
+  <h6 class="fw-bold">Pasos a seguir</h6>
+  <ol class="mb-4">
+    <li>Imprimir el siguiente voucher en la biblioteca</li>
+    <li>Firmar el voucher impreso</li>
+    <li>Presentar el voucher en la recepción de la biblioteca</li>
+    <li>Listo. ¡Disfruta del libro!</li>
+  </ol>
 
-    <h6 class="fw-bold">Voucher</h6>
+  <hr>
 
-    <div class="mb-3 info-block">
-        <h6 class="text-muted">Libro</h6>
-        <p>Nombre: <span>Fahrenheit 451</span></p>
-        <p>Autor: <span>Ray Bradbury</span></p>
-        <p>Fecha de publicación: <span>2004</span></p>
-        <p>Edición: <span>Novena edición</span></p>
-    </div>
+  <h6 class="fw-bold">Voucher</h6>
 
-    <div class="mb-3 info-block">
-        <h6 class="text-muted">Usuario</h6>
-        <p>Nombre y Apellidos: <span>ALVARO ALEXIS CAPCHA HINOSTROZA</span></p>
-        <p>DNI: <span>75487758</span></p>
-    </div>
+  <div class="mb-3 info-block" *ngIf="libro">
+    <h6 class="text-muted">Libro</h6>
+    <p>Nombre: <span>{{ libro.titulo }}</span></p>
+    <p>Autor: <span>{{ libro.autor }}</span></p>
+    <p>Fecha de publicación: <span>{{ libro.fechaPublicacion }}</span></p>
+    <p>Editorial: <span>{{ libro.editorial }}</span></p>
+  </div>
 
-    <div class="mb-4 info-block">
-        <h6 class="text-muted">Datos del préstamo</h6>
-        <p>Ubicación física: <span>Estantería 3A</span></p>
-        <p>
-            Día de Recogo:
-            <input type="date" class="form-control form-control-sm ms-2">
-        </p>
-    </div>
+  <div class="mb-3 info-block">
+    <h6 class="text-muted">Usuario</h6>
+    <p>Nombre y Apellidos: <span>{{ usuario.nombreCompleto }}</span></p>
+    <p>DNI: <span>{{ usuario.dni }}</span></p>
+  </div>
 
-    <div class="text-center">
-        <button class="btn btn-primary w-100">Imprimir voucher</button>
-    </div>
+  <div class="mb-4 info-block">
+    <h6 class="text-muted">Datos del préstamo</h6>
+    <p>Ubicación física: <span>{{ ejemplar.ubicacionFisica }}</span></p>
+    <p>
+      Día de Recojo:
+      <input type="date" class="form-control form-control-sm ms-2" [(ngModel)]="fechaRecojo">
+    </p>
+  </div>
+
+  <div class="text-center">
+    <button class="btn btn-primary w-100" (click)="imprimir()">Imprimir voucher</button>
+  </div>
 </div>
