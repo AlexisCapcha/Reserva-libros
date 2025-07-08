@@ -12,6 +12,7 @@ import { Registrar } from './paginas/registrar/registrar';
 import { CuentaComponent } from './paginas/cuenta/cuenta';
 import { MisReservas } from './paginas/mis-reservas/mis-reservas';
 import { Ejemplares } from './dashboard/ejemplares/ejemplares';
+import { Usuarios } from './dashboard/usuarios/usuarios';
 
 export const routes: Routes = [
     {
@@ -85,6 +86,10 @@ export const routes: Routes = [
             {
                 path: 'ejemplares',
                 component: Ejemplares
+            },
+            {
+                path: 'usuarios',
+                component: Usuarios
             }
         ]
     }
