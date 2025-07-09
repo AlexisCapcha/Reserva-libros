@@ -14,6 +14,7 @@ import { MisReservas } from './paginas/mis-reservas/mis-reservas';
 import { Ejemplares } from './dashboard/ejemplares/ejemplares';
 import { Usuarios } from './dashboard/usuarios/usuarios';
 import { Reservas } from './dashboard/reservas/reservas';
+import { Historial } from './dashboard/historial/historial';
 
 export const routes: Routes = [
     {
@@ -91,9 +92,12 @@ export const routes: Routes = [
             {
                 path: 'usuarios',
                 component: Usuarios
-            },{
-                path:'reservas',
+            }, {
+                path: 'reservas',
                 component: Reservas
+            }, {
+                path: 'historial',
+                component: Historial
             }
         ]
     }
