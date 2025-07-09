@@ -47,9 +47,18 @@ export class Catalogo implements OnInit {
 
   cargarLibros(): void {
     this.librosService.getLibros().subscribe({
-      next: (data) => this.libros = data,
-      error: (err) => console.error('Error cargando libros', err)
+      next: data => {
+        this.libros = this.agregarDisponibles(data);
+      },
+      error: err => console.error('Error cargando libros', err)
     });
+  }
+
+  private agregarDisponibles(libros: any[]) {
+    return libros.map(l => ({
+      ...l,
+      disponibles: l.ejemplares.filter((e: any) => e.estado === 'DISPONIBLE').length
+    }));
   }
 
   filtrar(): void {

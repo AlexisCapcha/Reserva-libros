@@ -18,7 +18,7 @@ export class Detalle implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private librosService: LibrosService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -35,4 +35,11 @@ export class Detalle implements OnInit {
       // });
     }
   }
+
+  contarDisponibles(): number {
+    if (!this.libro) return 0;
+    return this.libro.ejemplares
+      ?.filter((e: any) => e.estado === 'DISPONIBLE').length ?? 0;
+  }
+
 }

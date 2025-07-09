@@ -13,6 +13,7 @@ import { CuentaComponent } from './paginas/cuenta/cuenta';
 import { MisReservas } from './paginas/mis-reservas/mis-reservas';
 import { Ejemplares } from './dashboard/ejemplares/ejemplares';
 import { Usuarios } from './dashboard/usuarios/usuarios';
+import { Reservas } from './dashboard/reservas/reservas';
 
 export const routes: Routes = [
     {
@@ -90,6 +91,9 @@ export const routes: Routes = [
             {
                 path: 'usuarios',
                 component: Usuarios
+            },{
+                path:'reservas',
+                component: Reservas
             }
         ]
     }
