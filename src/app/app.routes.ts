@@ -15,6 +15,7 @@ import { Ejemplares } from './dashboard/ejemplares/ejemplares';
 import { Usuarios } from './dashboard/usuarios/usuarios';
 import { Reservas } from './dashboard/reservas/reservas';
 import { Historial } from './dashboard/historial/historial';
+import { Atrasadas } from './dashboard/atrasadas/atrasadas';
 
 export const routes: Routes = [
     {
@@ -98,6 +99,9 @@ export const routes: Routes = [
             }, {
                 path: 'historial',
                 component: Historial
+            },{
+                path:'atrasadas',
+                component: Atrasadas
             }
         ]
     }
