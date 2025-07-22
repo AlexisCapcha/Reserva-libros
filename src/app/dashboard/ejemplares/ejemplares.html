@@ -58,7 +58,7 @@
                 <div class="col-12">
                     <label for="libroSelect" class="form-label">Libro</label>
                     <select class="form-select" id="libroSelect" [(ngModel)]="nuevoEjemplar.libroId" name="libroId"
-                        required>
+                        required (change)="generarCodigo()">
                         <option *ngFor="let libro of libros" [value]="libro.id">
                             {{libro.titulo}} - {{libro.editorial}}
                         </option>
@@ -68,7 +68,7 @@
                 <div class="col-md-6">
                     <label for="codigoEjemplar" class="form-label">Código del Ejemplar</label>
                     <input type="text" class="form-control" id="codigoEjemplar"
-                        [(ngModel)]="nuevoEjemplar.codigoEjemplar" name="codigoEjemplar" required>
+                        [(ngModel)]="nuevoEjemplar.codigoEjemplar" name="codigoEjemplar" readonly>
                 </div>
 
                 <div class="col-md-6">

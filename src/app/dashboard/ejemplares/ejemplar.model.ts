@@ -5,7 +5,7 @@ export interface Ejemplar {
     codigoEjemplar: string;
     estado: EstadoEjemplar;
     ubicacion: string;
-    libroId?: number;
+    libroId?: number|null;
     libro?: Libro;
 }
 

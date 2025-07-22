@@ -23,7 +23,7 @@ export class Ejemplares implements OnInit {
     codigoEjemplar: '',
     estado: EstadoEjemplar.DISPONIBLE,
     ubicacion: '',
-    libroId: undefined
+    libroId: null
   };
 
   // Para el formulario de edición
@@ -57,7 +57,9 @@ export class Ejemplares implements OnInit {
     });
 
     this.librosService.getLibros().subscribe({
-      next: (data) => this.libros = data,
+      next: (data) => {
+        this.libros = data.sort((a, b) => a.titulo.localeCompare(b.titulo));
+      },
       error: (err) => console.error('Error al cargar libros', err)
     });
   }
@@ -67,7 +69,7 @@ export class Ejemplares implements OnInit {
       codigoEjemplar: '',
       estado: EstadoEjemplar.DISPONIBLE,
       ubicacion: '',
-      libroId: undefined
+      libroId: null
     };
     this.modalService.open(modal);
   }
@@ -118,4 +120,46 @@ export class Ejemplares implements OnInit {
       });
     }
   }
+
+  generarCodigo(): void {
+    if (this.nuevoEjemplar.libroId == null) return;
+
+    const libroId = Number(this.nuevoEjemplar.libroId);
+    const libro = this.libros.find(lib => lib.id === libroId);
+
+    if (!libro) return;
+
+    const titulo = this.normalizar(libro.titulo);
+
+    const abreviaturaTitulo = this.obtenerAbreviatura(titulo);
+
+    // Contar cuántos ejemplares ya hay de este libro
+    const ejemplaresDelLibro = this.ejemplares.filter(e => e.libroId === libro.id);
+    const numeroCorrelativo = (ejemplaresDelLibro.length + 1).toString().padStart(3, '0');
+
+    const isbn = libro.isbn?.replace(/[^0-9]/g, ''); // Solo números
+    const isbnSegmento = isbn?.slice(-5); // últimos 5 dígitos
+    const codigoGenerado = `${abreviaturaTitulo}-${isbnSegmento}-${numeroCorrelativo}`;
+    this.nuevoEjemplar.codigoEjemplar = codigoGenerado;
+  }
+
+  normalizar(texto: string): string {
+    return texto
+      .toLowerCase()
+      .replace(/^(el|la|los|las)\s+/i, '')
+      .replace(/[^a-zA-Z0-9 ]/g, '')
+      .trim();
+  }
+
+  obtenerAbreviatura(texto: string): string {
+    const palabras = texto.split(/\s+/);
+    const abreviatura = palabras.map(p => {
+      if (/^\d+$/.test(p)) return p;
+      return p[0] || '';
+    }).join('').substring(0, 5).toUpperCase();
+
+    return abreviatura;
+  }
+
+
 }
