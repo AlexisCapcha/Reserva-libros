@@ -2,7 +2,14 @@
     <div class="row mt-4">
         <h2>Reservas Pendientes</h2>
 
-        <!--Formulario de búsqueda-->
+        <!-- Formulario de Búsqueda -->
+        <div class="mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="codigo"
+                    placeholder="Ingrese el código del ejemplar">
+                <button class="btn btn-outline-secondary" type="button" (click)="buscarReserva()">Buscar</button>
+            </div>
+        </div>
 
         <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -16,6 +23,7 @@
                         <th class="text-center">Fecha Estimada de Devolución</th>
                         <th class="text-center">Fecha Real de Devolución</th>
                         <th class="text-center">Estado</th>
+                        <th class="text-center">Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +40,12 @@
                             </span>
                         </td>
                         <td class="text-center">{{reserva.estado}}</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-success" (click)="registrarDevolucion(reserva)"
+                                [disabled]="reserva.fechaRealDevolucion != null">
+                                <i class="bi bi-arrow-return-left me-1"></i> Devolver
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

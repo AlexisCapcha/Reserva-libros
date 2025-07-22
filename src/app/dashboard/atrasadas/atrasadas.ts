@@ -45,6 +45,9 @@ export class Atrasadas implements OnInit {
 
   enviarRecordatorioTodos():void{
     const confirmacion = window.confirm(`¿Deseas enviar un recordatorio por WhatsApp a todos?`);
+    if(confirmacion){
+      alert("Se envió un recordatorio a todas las reservas atrasadas.")
+    }
   }
 
 }

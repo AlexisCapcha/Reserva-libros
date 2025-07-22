@@ -13,19 +13,27 @@ export class ReservasService {
 
   constructor(private http: HttpClient) { }
 
-  getReservas(): Observable<Reserva[]>{
+  getReservas(): Observable<Reserva[]> {
     return this.http.get<Reserva[]>(this.apiUrl);
   }
 
-  getReservasPendientes(): Observable<Reserva[]>{
+  getReservasPendientes(): Observable<Reserva[]> {
     return this.http.get<Reserva[]>(`${this.apiUrl}/pendientes`);
   }
 
-  getReservasAtrasadas(): Observable<Reserva[]>{
+  getReservasAtrasadas(): Observable<Reserva[]> {
     return this.http.get<Reserva[]>(`${this.apiUrl}/atrasadas`);
   }
 
-  getReservasRecientes(): Observable<Reserva[]>{
+  getReservasRecientes(): Observable<Reserva[]> {
     return this.http.get<Reserva[]>(`${this.apiUrl}/recientes`)
+  }
+
+  getReservaPendientePorCodigo(codigoEjemplar: string): Observable<Reserva> {
+    return this.http.get<Reserva>(`${this.apiUrl}/pendientes/${codigoEjemplar}`);
+  }
+
+  actualizarReserva(reserva: Reserva): Observable<Reserva> {
+    return this.http.put<Reserva>(`${this.apiUrl}/${reserva.id}`, reserva);
   }
 }
