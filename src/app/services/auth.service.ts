@@ -1,37 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private apiUrl = 'http://localhost:8080/api/auth/login';
-  private userSubject = new BehaviorSubject<any>(null);
+  private userSubject = new BehaviorSubject<any>(this.getUsuario());
   public user$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(username: string, password: string): void {
-    this.http.post<any>(this.apiUrl, { username, password }).subscribe({
-      next: (user) => {
-        this.userSubject.next(user);
+  login(username: string, password: string): Observable<void> {
+    return this.http.post<any>(this.apiUrl, { username, password }).pipe(
+      tap(user => {
         localStorage.setItem('usuario', JSON.stringify(user));
+        this.userSubject.next(user);
         this.router.navigate(['/cuenta']);
-      },
-      error: (err) => {
-        alert('Credenciales incorrectas');
-        console.error(err);
-      }
-    });
+      }),
+      map(() => {}),
+      catchError(error => {
+        console.error('Login error:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
   getUsuario(): any {
-    return JSON.parse(localStorage.getItem('usuario') || 'null');
+    const usuario = localStorage.getItem('usuario');
+    return usuario ? JSON.parse(usuario) : null;
   }
 
   logout(): void {
-    this.userSubject.next(null);
     localStorage.removeItem('usuario');
+    this.userSubject.next(null);
     this.router.navigate(['/']);
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getUsuario();
   }
 }
