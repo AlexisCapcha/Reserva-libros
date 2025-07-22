@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 declare var bootstrap: any;
 
@@ -17,11 +18,10 @@ declare var bootstrap: any;
 export class PrincipalNavbarComponent implements OnInit {
   loginForm!: FormGroup;
   loginError: string | null = null;
-  usuario: any = null;
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
+    private authService: AuthService,  // Usa el AuthService
     private router: Router
   ) {}
 
@@ -35,19 +35,12 @@ export class PrincipalNavbarComponent implements OnInit {
   onLogin(): void {
     if (this.loginForm.invalid) return;
 
-    const loginData = {
-      username: this.loginForm.value.username,
-      password: this.loginForm.value.password
-    };
+    const { username, password } = this.loginForm.value;
 
-    this.http.post('http://localhost:8080/api/auth/login', loginData, {
-      withCredentials: true
-    }).subscribe({
-      next: (data) => {
-        this.usuario = data;
+    this.authService.login(username, password).subscribe({
+      next: () => {
         this.loginError = null;
         this.cerrarModal();
-        this.router.navigate(['/cuenta'], { state: { usuario: this.usuario } });
       },
       error: (error) => {
         console.error('Error al iniciar sesión:', error);
@@ -57,12 +50,14 @@ export class PrincipalNavbarComponent implements OnInit {
   }
 
   cerrarModal(): void {
-    const modalElement = document.getElementById('staticBackdrop');
-    if (modalElement) {
-      const modalInstance = bootstrap.Modal.getInstance(modalElement);
-      if (modalInstance) {
-        modalInstance.hide();
-      }
+  const modalElement = document.getElementById('loginModal');
+  if (modalElement) {
+    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+    if (modalInstance) {
+      modalInstance.hide();
+    } else {
+      new bootstrap.Modal(modalElement).hide();
     }
   }
+}
 }

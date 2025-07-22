@@ -130,17 +130,21 @@ export class Ejemplares implements OnInit {
     if (!libro) return;
 
     const titulo = this.normalizar(libro.titulo);
-
     const abreviaturaTitulo = this.obtenerAbreviatura(titulo);
 
-    // Contar cuántos ejemplares ya hay de este libro
-    const ejemplaresDelLibro = this.ejemplares.filter(e => e.libroId === libro.id);
-    const numeroCorrelativo = (ejemplaresDelLibro.length + 1).toString().padStart(3, '0');
+    // Filtro mejorado que verifica tanto libroId como el objeto libro
+    const ejemplaresDelLibro = this.ejemplares.filter(e => {
+      const idComparar = e.libroId !== undefined ? e.libroId : e.libro?.id;
+      return idComparar === libro.id;
+    });
 
-    const isbn = libro.isbn?.replace(/[^0-9]/g, ''); // Solo números
-    const isbnSegmento = isbn?.slice(-5); // últimos 5 dígitos
-    const codigoGenerado = `${abreviaturaTitulo}-${isbnSegmento}-${numeroCorrelativo}`;
-    this.nuevoEjemplar.codigoEjemplar = codigoGenerado;
+    console.log('Ejemplares del libro', libro.titulo, ':', ejemplaresDelLibro);
+
+    const numeroCorrelativo = (ejemplaresDelLibro.length + 1).toString().padStart(3, '0');
+    const isbn = libro.isbn?.replace(/[^0-9]/g, '') || '00000';
+    const isbnSegmento = isbn.slice(-5);
+
+    this.nuevoEjemplar.codigoEjemplar = `${abreviaturaTitulo}-${isbnSegmento}-${numeroCorrelativo}`;
   }
 
   normalizar(texto: string): string {
