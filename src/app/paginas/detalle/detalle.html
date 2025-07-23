@@ -26,9 +26,17 @@
         <p class="mb-1"><strong>Editorial:</strong> {{ libro.editorial }}</p>
         <p class="mb-3"><strong>ISBN:</strong> {{ libro.isbn }}</p>
 
-        <button class="btn btn-purple w-100" [routerLink]="['/prestamo', libro.id]">
+        <button *ngIf="authService.isAuthenticated(); else loginButton" class="btn btn-purple w-100"
+          [routerLink]="['/prestamo', libro.id]"
+          [disabled]="contarDisponibles() === 0">
           Solicitar préstamo
         </button>
+
+        <ng-template #loginButton>
+          <button type="button" class="btn btn-purple w-100" data-bs-toggle="modal" data-bs-target="#loginModal">
+            Inicie sesión para solicitar
+          </button>
+        </ng-template>
       </div>
 
       <!-- Columna de descripción y disponibilidad -->

@@ -16,3 +16,39 @@
 .info-block input[type="date"] {
     max-width: 180px;
 }
+
+/* Nuevos estilos añadidos */
+.no-imprimir {
+    @media print {
+        display: none !important;
+    }
+}
+
+.d-flex.gap-2 {
+    gap: 0.5rem;
+}
+
+.alert {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .voucher-container, .voucher-container * {
+        visibility: visible;
+    }
+    .voucher-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        padding: 0;
+    }
+}

@@ -40,4 +40,16 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!this.getUsuario();
   }
+
+  actualizarUsuarioConReserva(nuevaReserva: any): void {
+  const usuarioActual = this.getUsuario();
+  if (usuarioActual) {
+    const usuarioActualizado = {
+      ...usuarioActual,
+      reservas: [...(usuarioActual.reservas || []), nuevaReserva]
+    };
+    localStorage.setItem('usuario', JSON.stringify(usuarioActualizado));
+    this.userSubject.next(usuarioActualizado);
+  }
+}
 }
