@@ -16,6 +16,7 @@ declare var bootstrap: any;
   imports: [RouterModule, ReactiveFormsModule, CommonModule]
 })
 export class PrincipalNavbarComponent implements OnInit {
+  usuarioAutenticado = false;
   loginForm!: FormGroup;
   loginError: string | null = null;
 
@@ -23,12 +24,18 @@ export class PrincipalNavbarComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,  // Usa el AuthService
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
+    });
+
+    this.usuarioAutenticado = this.authService.isAuthenticated();
+    // Suscribirse a cambios de autenticación
+    this.authService.user$.subscribe(user => {
+      this.usuarioAutenticado = !!user;
     });
   }
 
@@ -50,14 +57,19 @@ export class PrincipalNavbarComponent implements OnInit {
   }
 
   cerrarModal(): void {
-  const modalElement = document.getElementById('loginModal');
-  if (modalElement) {
-    const modalInstance = bootstrap.Modal.getInstance(modalElement);
-    if (modalInstance) {
-      modalInstance.hide();
-    } else {
-      new bootstrap.Modal(modalElement).hide();
+    const modalElement = document.getElementById('loginModal');
+    if (modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      if (modalInstance) {
+        modalInstance.hide();
+      } else {
+        new bootstrap.Modal(modalElement).hide();
+      }
     }
   }
-}
+
+  logout() {
+    this.authService.logout();
+  }
+
 }
