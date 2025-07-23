@@ -21,37 +21,23 @@
         <div class="col-md-9 col-lg-10 content-section">
             <h2 class="text-primary fw-bold mb-4">Mis Préstamos</h2>
 
-            <div class="row g-4">
+            <div class="row g-4" *ngIf="reservas.length > 0; else noReservas">
                 <!-- Libro 1 -->
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4" *ngFor="let reserva of usuario.reservas">
                     <div class="card h-100 p-3">
-                        <h5 class="card-title">📕 Don Quijote de la Mancha</h5>
-                        <h6 class="card-subtitle mb-2">Miguel de Cervantes</h6>
-                        <p class="card-text mb-1"><strong>Fecha de préstamo:</strong> 5 abril 2025</p>
-                        <p class="card-text"><strong>Fecha de devolución:</strong> 20 abril 2025</p>
-                    </div>
-                </div>
-
-                <!-- Libro 2 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 p-3">
-                        <h5 class="card-title">📘 Rayuela</h5>
-                        <h6 class="card-subtitle mb-2">Julio Cortázar</h6>
-                        <p class="card-text mb-1"><strong>Fecha de préstamo:</strong> 8 abril 2025</p>
-                        <p class="card-text"><strong>Fecha de devolución:</strong> 23 abril 2025</p>
-                    </div>
-                </div>
-
-                <!-- Libro 3 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 p-3">
-                        <h5 class="card-title">📗 El Amor en los Tiempos del Cólera</h5>
-                        <h6 class="card-subtitle mb-2">Gabriel García Márquez</h6>
-                        <p class="card-text mb-1"><strong>Fecha de préstamo:</strong> 10 abril 2025</p>
-                        <p class="card-text"><strong>Fecha de devolución:</strong> 25 abril 2025</p>
+                        <h5 class="card-title"><i class="bi bi-book"></i> {{reserva.ejemplar.libro.titulo}}</h5>
+                        <h6 class="card-subtitle mb-2">{{ reserva.ejemplar.libro.autor }}</h6>
+                        <p class="card-text mb-1"><strong>Fecha de préstamo:</strong> {{ reserva.fechaReserva | date:"dd 'de' MMMM 'del' yyyy"}}</p>
+                        <p class="card-text"><strong>Fecha de devolución:</strong> <span
+                                [ngClass]="reserva.fechaRealDevolucion==null?'text-danger':'text-dark'">
+                                {{reserva.fechaRealDevolucion==null?'No devuelto':reserva.fechaRealDevolucion|date:"dd 'de' MMMM 'del' yyyy"}}
+                            </span></p>
                     </div>
                 </div>
             </div>
+            <ng-template #noReservas>
+                <p>No tienes libros reservados.</p>
+            </ng-template>
         </div>
     </div>
 </div>

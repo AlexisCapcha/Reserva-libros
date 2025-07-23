@@ -38,9 +38,9 @@
 
           <div *ngIf="reservas.length > 0; else noReservas">
             <div *ngFor="let reserva of reservas" class="book-item mt-2">
-              <h6>📘 {{ reserva.ejemplar.libro.titulo }}</h6>
+              <h6><i class="bi bi-book"></i> {{ reserva.ejemplar.libro.titulo }}</h6>
               <small>Autor: {{ reserva.ejemplar.libro.autor }}</small><br />
-              <small>Fecha de reserva: {{ reserva.fechaReserva | date:'dd MMMM yyyy' }}</small>
+              <small>Fecha de reserva: {{ reserva.fechaReserva | date:"dd 'de' MMMM 'del' yyyy" }}</small>
             </div>
           </div>
 
