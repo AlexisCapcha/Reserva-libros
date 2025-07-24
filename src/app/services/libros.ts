@@ -9,6 +9,7 @@ import { Ejemplar } from '../dashboard/ejemplares/ejemplar.model';
 })
 export class LibrosService {
   private apiUrl = 'http://localhost:8080/api/libros';
+  private apiUrlAlt = 'http://localhost:8080/api'
 
   constructor(private http: HttpClient) { }
 
@@ -48,4 +49,7 @@ export class LibrosService {
     return this.http.get<string[]>(`${this.apiUrl}/generos`);
   }
 
+  getDetallePorSlug(slug: string): Observable<{ libro: any; ejemplaresDisponibles: any[] }> {
+    return this.http.get<{ libro: any; ejemplaresDisponibles: any[] }>(`${this.apiUrlAlt}/detalle/${slug}`);
+  }
 }

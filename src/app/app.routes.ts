@@ -36,7 +36,7 @@ export const routes: Routes = [
                 component: Eventos
             },
 
-            { path: 'detalle/:id', loadComponent: () => import('./paginas/detalle/detalle').then(m => m.Detalle) }
+            { path: 'detalle/:slug', loadComponent: () => import('./paginas/detalle/detalle').then(m => m.Detalle) }
             ,
             {
                 path: 'prestamo',

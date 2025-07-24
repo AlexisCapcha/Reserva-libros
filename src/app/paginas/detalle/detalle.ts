@@ -23,18 +23,15 @@ export class Detalle implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.librosService.getLibro(+id).subscribe({
-        next: (data) => this.libro = data,
+    const slug = this.route.snapshot.paramMap.get('slug');
+    if (slug) {
+      this.librosService.getDetallePorSlug(slug).subscribe({
+        next: (data) => {
+          this.libro = data.libro;
+          this.ejemplares = data.ejemplaresDisponibles;
+        },
         error: (err) => console.error('Error cargando libro', err)
       });
-
-      // Si tienes una API para los ejemplares, descomenta esto
-      // this.librosService.getEjemplaresPorLibro(+id).subscribe({
-      //   next: (data) => this.ejemplares = data,
-      //   error: (err) => console.error('Error cargando ejemplares', err)
-      // });
     }
   }
 

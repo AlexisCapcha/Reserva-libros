@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { LibrosService } from '../../services/libros';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-catalogo',
@@ -19,7 +21,7 @@ export class Catalogo implements OnInit {
 
   filtroForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private librosService: LibrosService) { }
+  constructor(private fb: FormBuilder, private librosService: LibrosService, private router: Router) { }
 
   ngOnInit(): void {
     this.filtroForm = this.fb.group({
@@ -77,6 +79,17 @@ export class Catalogo implements OnInit {
       },
       error: (err: any) => console.error('Error al filtrar libros', err)
     });
+  }
+
+  irADetalle(slug: string, modalId: string): void {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      const bsModal = bootstrap.Modal.getInstance(modal) || new bootstrap.Modal(modal);
+      bsModal.hide();
+    }
+    setTimeout(() => {
+      this.router.navigate(['/detalle', slug]);
+    }, 300);
   }
 
 }
