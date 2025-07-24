@@ -114,6 +114,20 @@ body::before {
         /* Moverlo arriba del menú si se desea */
     }
 
+    .boton-login {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 1rem auto;
+    }
+
+    .boton-login2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 1rem auto;
+    } 
+
     .custom-collapse {
         display: flex;
         flex-direction: column;

@@ -97,18 +97,18 @@ export class Prestamo implements OnInit {
         this.isLoading = false;
 
         this.authService.actualizarUsuarioConReserva(reserva);
-
-        setTimeout(() => {
-          this.router.navigate(['/cuenta'], {
-            state: { reservaReciente: true }
-          });
-        }, 2000);
       },
       error: (err) => {
         console.error('Error creando reserva:', err);
         this.errorMessage = 'Error al crear la reserva';
         this.isLoading = false;
       }
+    });
+  }
+
+  irAMiCuenta() {
+    this.router.navigate(['/cuenta'], {
+      state: { reservaReciente: true }
     });
   }
 
@@ -131,9 +131,9 @@ export class Prestamo implements OnInit {
   }
 
   cargarEjemplarDisponible(disponibles: any[]): void {
-        if (disponibles.length > 0) {
-          this.ejemplar = disponibles[0];
-        }
+    if (disponibles.length > 0) {
+      this.ejemplar = disponibles[0];
+    }
   }
 
   imprimir(): void {

@@ -20,6 +20,7 @@ export class CuentaComponent implements OnInit {
   usuario: any = null;
   reservas: any[] = [];
   error: string | null = null;
+  reservaSuccess = true;
   private userSubscription!: Subscription;
 
   constructor(private authService: AuthService, private router: Router) {
@@ -57,4 +58,5 @@ export class CuentaComponent implements OnInit {
   logout(): void {
     this.authService.logout();
   }
+
 }
