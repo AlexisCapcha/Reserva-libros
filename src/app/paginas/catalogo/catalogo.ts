@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LibrosService } from '../../services/libros';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
+import { Libro } from '../../dashboard/libros/libro.model';
 
 @Component({
   selector: 'app-catalogo',
@@ -61,21 +62,23 @@ export class Catalogo implements OnInit {
     }));
   }
 
-  filtrar(): void {
+
+  filtrar() {
     const { titulo, editorial, genero, orden } = this.filtroForm.value;
 
-    this.librosService.getLibros().subscribe({
-      next: (data: any[]) => {
-        this.libros = data
-          .filter(libro => !titulo || libro.titulo.toLowerCase().includes(titulo.toLowerCase()))
-          .filter(libro => !editorial || libro.editorial === editorial)
-          .filter(libro => !genero || libro.genero === genero)
-          .sort((a, b) => {
-            const comparacion = a.titulo.localeCompare(b.titulo, 'es', { sensitivity: 'base' });
-            return orden === 'desc' ? -comparacion : comparacion;
-          });
-      },
-      error: (err: any) => console.error('Error al filtrar libros', err)
+    this.librosService.getLibrosFiltrados(titulo, editorial, genero, orden).subscribe(data => {
+      // Inicializa con cero disponibles
+      this.libros = data.map(libro => ({
+        ...libro,
+        disponibles: 0 // lo necesitaremos para que no sea undefined al inicio
+      }));
+
+      // Cargar ejemplares disponibles para cada libro
+      this.libros.forEach(libro => {
+        this.librosService.getEjemplaresDisponibles(libro.id).subscribe(ejemplares => {
+          libro.disponibles = ejemplares.length; // <- CAMBIO IMPORTANTE
+        });
+      });
     });
   }
 

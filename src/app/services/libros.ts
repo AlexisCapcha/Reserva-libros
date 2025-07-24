@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Libro } from '../dashboard/libros/libro.model';
 import { Ejemplar } from '../dashboard/ejemplares/ejemplar.model';
@@ -46,6 +46,17 @@ export class LibrosService {
 
   getGeneros(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiUrl}/generos`);
+  }
+
+
+  getLibrosFiltrados(titulo: string, editorial: string, genero: string, orden: string): Observable<Libro[]> {
+    const params = new HttpParams()
+      .set('titulo', titulo || '')
+      .set('editorial', editorial || '')
+      .set('genero', genero || '')
+      .set('orden', orden || 'asc');
+
+    return this.http.get<Libro[]>(`${this.apiUrl}/filtrar`, { params });
   }
 
 }

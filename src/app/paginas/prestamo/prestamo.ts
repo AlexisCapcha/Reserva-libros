@@ -80,36 +80,37 @@ export class Prestamo implements OnInit {
   }
 
   enviarReserva(): void {
-  if (!this.validarFormulario() || !this.ejemplar?.id) return;
+    if (!this.validarFormulario() || !this.ejemplar?.id) return;
 
-  this.isLoading = true;
+    this.isLoading = true;
 
-  const reservaData = {
-    usuarioId: this.usuario.id,
-    ejemplarId: this.ejemplar.id,
-    fechaRecojo: this.fechaRecojo
-  };
+    const reservaData = {
+      usuarioId: this.usuario.id,
+      ejemplarId: this.ejemplar.id,
+      fechaRecojo: this.fechaRecojo
+    };
 
-  this.reservaService.crearReserva(reservaData).subscribe({
-    next: (reserva) => {
-      this.reservaSuccess = true;
-      this.isLoading = false;
-      
-      this.authService.actualizarUsuarioConReserva(reserva);
-      
-      setTimeout(() => {
-        this.router.navigate(['/cuenta'], {
-          state: { reservaReciente: true }
-        });
-      }, 2000);
-    },
-    error: (err) => {
-      console.error('Error creando reserva:', err);
-      this.errorMessage = 'Error al crear la reserva';
-      this.isLoading = false;
-    }
-  });
-}
+    this.reservaService.crearReserva(reservaData).subscribe({
+      next: (reserva) => {
+        this.reservaSuccess = true;
+        this.isLoading = false;
+
+        this.authService.actualizarUsuarioConReserva(reserva);
+
+      },
+      error: (err) => {
+        console.error('Error creando reserva:', err);
+        this.errorMessage = 'Error al crear la reserva';
+        this.isLoading = false;
+      }
+    });
+  }
+
+  irAMiCuenta() {
+    this.router.navigate(['/cuenta'], {
+      state: { reservaReciente: true }
+    });
+  }
 
   private validarFormulario(): boolean {
     if (!this.fechaRecojo) {
