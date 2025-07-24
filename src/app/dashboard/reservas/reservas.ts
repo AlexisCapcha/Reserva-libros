@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservasService } from '../../services/reservas';
 import { CommonModule } from '@angular/common';
-import { Reserva } from '../reservas/reservas.model';
+import { EstadoReserva, Reserva } from '../reservas/reservas.model';
 import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
@@ -57,6 +57,19 @@ export class Reservas implements OnInit {
           console.error('Error al registrar la devolución', err);
         }
       });
+    }
+  }
+
+  getNombreEstado(estado: EstadoReserva): string {
+    switch (estado) {
+      case EstadoReserva.PENDIENTE:
+        return 'Pendiente';
+      case EstadoReserva.DEVUELTO:
+        return 'Devuelto';
+      case EstadoReserva.CON_RETRASO:
+        return 'Con retraso';
+      default:
+        return estado;
     }
   }
 

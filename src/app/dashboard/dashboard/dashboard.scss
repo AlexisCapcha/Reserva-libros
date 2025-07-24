@@ -1,0 +1,23 @@
+.dashboard-card {
+    border-radius: 1rem;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: default;
+
+    &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    .card-body {
+        padding: 1.5rem 1rem;
+    }
+
+    .card-title {
+        font-weight: 600;
+    }
+
+    .spinner-border {
+        width: 2rem;
+        height: 2rem;
+    }
+}

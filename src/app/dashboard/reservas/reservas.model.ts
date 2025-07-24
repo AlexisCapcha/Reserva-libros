@@ -15,7 +15,7 @@ export interface Reserva {
 
 export enum EstadoReserva {
     PENDIENTE = 'PENDIENTE',
-    ACTIVA = 'ACTIVA',
+    DEVUELTO = 'DEVUELTO',
     CON_RETRASO = 'CON_RETRASO',
-    DEVUELTA = 'DEVUELTA'
+    CANCELADO = 'CANCELADO'
 }
