@@ -34,22 +34,23 @@ export class CuentaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userSubscription = this.authService.user$.subscribe({
-      next: (user) => {
-        if (user) {
-          this.usuario = user;
-          this.reservas = user.reservas || [];
-          this.error = null;
-        } else {
-          this.error = 'No se pudo obtener la información del usuario.';
-        }
-      },
-      error: (err) => {
-        this.error = 'Error al obtener la información del usuario.';
-        console.error(err);
+  this.userSubscription = this.authService.user$.subscribe({
+    next: (user) => {
+      if (user) {
+        this.usuario = user;
+        this.reservas = (user.reservas || []).filter((r: any) => r.estado === 'PENDIENTE');
+        this.error = null;
+      } else {
+        this.error = 'No se pudo obtener la información del usuario.';
       }
-    });
-  }
+    },
+    error: (err) => {
+      this.error = 'Error al obtener la información del usuario.';
+      console.error(err);
+    }
+  });
+}
+
 
   ngOnDestroy(): void {
     this.userSubscription?.unsubscribe();

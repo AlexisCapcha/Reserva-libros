@@ -39,9 +39,9 @@ export class Registrar {
       return;
     }
 
-this.http.post('http://localhost:8080/api/auth/registrar', this.registroForm.value, { responseType: 'text' })
+    this.http.post('http://localhost:8080/api/auth/registrar', this.registroForm.value, { responseType: 'text' })
       .subscribe({
-        next: () => this.router.navigate(['/cuenta']),
+        next: () => this.router.navigate(['/'], { queryParams: { registroExitoso: 'true' } }),
         error: (err) => {
           console.error('Error del servidor:', err);
           if (err.error && typeof err.error === 'string') {
