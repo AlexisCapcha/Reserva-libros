@@ -1,6 +1,6 @@
 <div class="voucher-container mx-auto bg-white p-4 rounded shadow-sm mt-4">
   <!-- Botón de volver (no-imprimir para ocultar al imprimir) -->
-  <a [routerLink]="['/detalle', libro?.id]" class="btn btn-danger btn-sm mb-3 no-imprimir">
+  <a [routerLink]="['/detalle', libro?.slug]" class="btn btn-danger btn-sm mb-3 no-imprimir">
     <i class="bi bi-arrow-left"></i> Volver a detalle
   </a>
 
@@ -25,7 +25,6 @@
       <h6 class="bg-light text-dark text-center py-1 border rounded">Libro</h6>
       <p>Nombre: <span>{{ libro.titulo }}</span></p>
       <p>Autor: <span>{{ libro.autor }}</span></p>
-      <p>Código: <span>{{ ejemplar?.codigoEjemplar }}</span></p>
     </div>
 
     <!-- Sección Usuario -->
@@ -39,7 +38,7 @@
     <!-- Sección Datos del Préstamo -->
     <div class="mb-4 info-block">
       <h6 class="bg-light text-dark text-center py-1 border rounded">Datos del préstamo</h6>
-
+      <p>Código del ejemplar: <span>{{ ejemplar?.codigoEjemplar }}</span></p>
       <p>Ubicación física: <span>Estantería {{ ejemplar?.ubicacion }}</span></p>
 
       <p class="d-flex align-items-center">

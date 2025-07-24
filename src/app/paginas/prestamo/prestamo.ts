@@ -52,64 +52,65 @@ export class Prestamo implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    const libroId = Number(id);
+    const slug = this.route.snapshot.paramMap.get('slug');
 
-    // Cargar libro
-    this.librosService.getLibro(libroId).subscribe({
-      next: (libro) => {
-        this.libro = libro;
-        this.cargarEjemplarDisponible(libroId);
-      },
-      error: (err) => {
-        console.error('Error cargando libro', err);
-        this.errorMessage = 'Error al cargar el libro';
-      }
-    });
-    //cargar usuario
-    this.userSubscription = this.authService.user$.subscribe({
-      next: (user) => {
-        if (user) {
-          this.usuario = user;
+    if (slug) {
+      // Cargar libro
+      this.librosService.getDetallePorSlug(slug).subscribe({
+        next: (data) => {
+          this.libro = data.libro;
+          this.cargarEjemplarDisponible(data.ejemplaresDisponibles);
+        },
+        error: (err) => {
+          console.error('Error cargando libro', err);
+          this.errorMessage = 'Error al cargar el libro';
         }
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
+      });
+      //cargar usuario
+      this.userSubscription = this.authService.user$.subscribe({
+        next: (user) => {
+          if (user) {
+            this.usuario = user;
+          }
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
+    }
   }
 
   enviarReserva(): void {
-  if (!this.validarFormulario() || !this.ejemplar?.id) return;
+    if (!this.validarFormulario() || !this.ejemplar?.id) return;
 
-  this.isLoading = true;
+    this.isLoading = true;
 
-  const reservaData = {
-    usuarioId: this.usuario.id,
-    ejemplarId: this.ejemplar.id,
-    fechaRecojo: this.fechaRecojo
-  };
+    const reservaData = {
+      usuarioId: this.usuario.id,
+      ejemplarId: this.ejemplar.id,
+      fechaRecojo: this.fechaRecojo
+    };
 
-  this.reservaService.crearReserva(reservaData).subscribe({
-    next: (reserva) => {
-      this.reservaSuccess = true;
-      this.isLoading = false;
-      
-      this.authService.actualizarUsuarioConReserva(reserva);
-      
-      setTimeout(() => {
-        this.router.navigate(['/cuenta'], {
-          state: { reservaReciente: true }
-        });
-      }, 2000);
-    },
-    error: (err) => {
-      console.error('Error creando reserva:', err);
-      this.errorMessage = 'Error al crear la reserva';
-      this.isLoading = false;
-    }
-  });
-}
+    this.reservaService.crearReserva(reservaData).subscribe({
+      next: (reserva) => {
+        this.reservaSuccess = true;
+        this.isLoading = false;
+
+        this.authService.actualizarUsuarioConReserva(reserva);
+
+        setTimeout(() => {
+          this.router.navigate(['/cuenta'], {
+            state: { reservaReciente: true }
+          });
+        }, 2000);
+      },
+      error: (err) => {
+        console.error('Error creando reserva:', err);
+        this.errorMessage = 'Error al crear la reserva';
+        this.isLoading = false;
+      }
+    });
+  }
 
   private validarFormulario(): boolean {
     if (!this.fechaRecojo) {
@@ -129,18 +130,10 @@ export class Prestamo implements OnInit {
     return true;
   }
 
-  cargarEjemplarDisponible(libroId: number): void {
-    this.librosService.getEjemplaresDisponibles(libroId).subscribe({
-      next: (ejemplares) => {
-        if (ejemplares.length > 0) {
-          this.ejemplar = ejemplares[0];
+  cargarEjemplarDisponible(disponibles: any[]): void {
+        if (disponibles.length > 0) {
+          this.ejemplar = disponibles[0];
         }
-      },
-      error: (err) => {
-        console.error('Error cargando ejemplares', err);
-        this.errorMessage = 'Error al verificar disponibilidad';
-      }
-    });
   }
 
   imprimir(): void {

@@ -44,7 +44,7 @@ export const routes: Routes = [
             }
             ,
             {
-                path: 'prestamo/:id',
+                path: 'prestamo/:slug',
                 loadComponent: () => import('./paginas/prestamo/prestamo').then(m => m.Prestamo)
             },
             {
