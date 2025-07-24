@@ -36,19 +36,23 @@
 }
 
 @media print {
-    body * {
-        visibility: hidden;
-    }
-    .voucher-container, .voucher-container * {
-        visibility: visible;
-    }
-    .voucher-container {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        max-width: 100%;
-        box-shadow: none;
-        padding: 0;
-    }
+  .voucher-container,
+  .voucher-container * {
+    color: #000 !important;                  /* Fuerza texto negro */
+    background-color: #fff !important;       /* Fondo blanco */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .voucher-container input {
+    border: none !important;
+    color: #000 !important;
+    background-color: transparent !important;
+  }
+
+  .voucher-container span,
+  .voucher-container p,
+  .voucher-container label {
+    color: #000 !important;
+  }
 }

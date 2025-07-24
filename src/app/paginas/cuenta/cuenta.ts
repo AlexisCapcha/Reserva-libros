@@ -9,19 +9,20 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-cuenta',
   templateUrl: './cuenta.html',
-  styleUrls: ['./cuenta.scss'], 
+  styleUrls: ['./cuenta.scss'],
   imports: [RouterModule, ReactiveFormsModule, CommonModule]
 })
 export class CuentaComponent implements OnInit {
   usuario: any = null;
   reservas: any[] = [];
   error: string | null = null;
+  reservaSuccess = true;
   private userSubscription!: Subscription;
 
   constructor(private authService: AuthService, private router: Router) {
     const navigation = this.router.getCurrentNavigation();
     const stateUser = navigation?.extras?.state?.['usuario'];
-    
+
     if (stateUser) {
       this.usuario = stateUser;
       this.reservas = stateUser.reservas || [];
@@ -53,4 +54,5 @@ export class CuentaComponent implements OnInit {
   logout(): void {
     this.authService.logout();
   }
+
 }
